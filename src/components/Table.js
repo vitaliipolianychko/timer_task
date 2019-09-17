@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -7,25 +7,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Button from './Button_Timer';
 import NavTabs from './Tabs';
 
-const StyledTableCell = withStyles(() => ({
-  root: {
-    color: 'black',
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
-
-const StyledTableRow = withStyles(theme => ({
-  root: {
-    backgroundColor: theme.palette.background.default,
-  },
-}))(TableRow);
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
     width: '80%',
     overflowX: 'auto',
@@ -38,14 +24,15 @@ const useStyles = makeStyles(theme => ({
   },
   backTableRoot: {
     background: 'white',
-    color: 'grey',
+    color: 'silver',
   },
 }));
 
 export default function CustomizedTables(props) {
+  const { DataTasks, DeleteTask } = props;
   const classes = useStyles();
-  const dataTasks = props.DataTasks.map(task => {
-    const tasks = task.tasks;
+  const dataTasks = DataTasks.map(task => {
+    const { tasks } = task;
     let timeStart = new Date(task.time_start);
     let timeEnd = new Date(task.time_end);
     let timeSpend = new Date(task.time_spend);
@@ -145,7 +132,7 @@ export default function CustomizedTables(props) {
               <TableCell align="left">{task.timeSpend}</TableCell>
               <TableCell align="left">
                 {
-                  <Link to={`/tasks/${index + 1}`}>
+                  <Link style={{ textDecoration: 'none' }} to={`/tasks/${index + 1}`}>
                     <Button align="left">Info </Button>
                   </Link>
                 }
@@ -154,11 +141,10 @@ export default function CustomizedTables(props) {
                 {
                   <Button
                     onClick={() => {
-                      props.DeleteTask(index);
+                      DeleteTask(index);
                     }}
                   >
-                    {' '}
-                    Delete{' '}
+                    Delete
                   </Button>
                 }
               </TableCell>
@@ -169,3 +155,9 @@ export default function CustomizedTables(props) {
     </Paper>
   );
 }
+CustomizedTables.propTypes = {
+  DataTasks: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.string, PropTypes.string, PropTypes.string])
+  ).isRequired,
+  DeleteTask: PropTypes.func.isRequired,
+};

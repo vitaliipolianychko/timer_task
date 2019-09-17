@@ -6,6 +6,7 @@
   "dependencies": {
     "@material-ui/core": "^4.3.3",
     "@material-ui/styles": "^4.3.3",
+    "history-prop-types": "^2.5.2",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
@@ -30,6 +31,7 @@
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
     "gh-pages": "^2.1.1",
+    "jest": "^24.9.0",
     "prettier": "1.18.2",
     "redux-devtools": "^3.5.0"
   },
@@ -38,7 +40,7 @@
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test": "jest"
   }
 }

@@ -1,8 +1,7 @@
 .container-timer {
   width: 200px;
   margin-top: 30px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
 }
 .circle {
   margin-top: 20px;
@@ -24,41 +23,39 @@
   color: #00b4b4;
 }
 .margin-input {
-   margin-left: 15px;
+  margin-left: 15px;
 }
 
-.popup {  
-  position: fixed;  
-  width: 100%;  
-  height: 100%;  
-  top: 0;  
-  left: 0;  
-  right: 0;  
-  bottom: 0;  
-  margin: auto;  
-  background-color: rgba(0,0,0, 0.5);  
-}  
-.popup-inner {  
-  position: absolute;  
-  left: 20%;  
-  right: 20%;  
-  top: 30%;  
-  bottom: 40%;  
-  margin: auto;  
-  background: white; 
-  padding: 5px; 
+.popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.popup-inner {
+  position: absolute;
+  left: 20%;
+  right: 20%;
+  top: 30%;
+  bottom: 40%;
+  margin: auto;
+  background: white;
+  padding: 5px;
 }
 .popup-btn {
   padding: 0;
   border: none;
   font: inherit;
-  color: #3F51B5;
+  color: #3f51b5;
   font-size: 20px;
   background-color: transparent;
   margin-top: 2%;
-  margin-left: 85% ;
+  margin-left: 85%;
   text-transform: uppercase;
   cursor: pointer;
 }
-
-

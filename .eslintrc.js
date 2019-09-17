@@ -20,6 +20,7 @@ module.exports = {
   plugins: ['react', 'prettier', 'react-hooks'],
   rules: {
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'no-restricted-globals': ['error', 'event', 'fdescribe'],
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'prettier/prettier': [
       'error',

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Task from './Task';
-import {withRouter} from 'react-router-dom';
 
 const mapStateToProps = state => {
   return {

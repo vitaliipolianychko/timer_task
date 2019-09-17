@@ -1,26 +1,24 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/styles';
+import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 
-const useStyles = makeStyles({
-  root: {
-    border: '2px solid grey',
-    borderRadius: 3,
-    color: '#00B4B4',
-    background: 'white',
-    cursor: 'pointer',
-    fontSize: 12,
-    fontWeight: 700,
-    marginLeft : 65,
-  },
-});
-
 const ButtonTimer = ({ onClick, children, style }) => {
-  const classes = useStyles();
   return (
-    <Button className={classes.root} onClick={onClick}>
+    <Button variant="contained" onClick={onClick} style={style}>
       {children}
     </Button>
   );
 };
+
+ButtonTimer.propTypes = {
+  onClick: PropTypes.func,
+  children: PropTypes.string.isRequired,
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+};
+
+ButtonTimer.defaultProps = {
+  style: null,
+  onClick: null,
+};
+
 export default ButtonTimer;

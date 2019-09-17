@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import Timer from './Timer';
 import { onTaskChangeActionCreator, startButtonAC, stopButtonAC } from '../redux/dataTasksReducer';
 
-
 const mapStateToProps = state => {
   return {
     newTaskText: state.newTaskText,

@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Redirect } from 'react-router';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/storeRedux';
 import ChartContainer from './components/ChartContainer';
@@ -11,7 +10,7 @@ import TasksLog from './components/tasksLog';
 export const renderTasks = state => {
   ReactDOM.render(
     <Provider store={store}>
-      <BrowserRouter basename="/timer/">
+      <BrowserRouter basename = "/timer/">
         <Switch>
           <Route exact path="/" render={() => <Redirect to="/tasks" />} />
           <Route exact path="/tasks" component={TasksLog} />
