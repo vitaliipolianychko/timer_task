@@ -12,6 +12,8 @@ class Chart extends Component {
     drawChart();
   }
 
+  componentWillUnmount() {}
+
   generateTasks = () => {
     const { drawChart, GenerateTasks } = this.props;
     GenerateTasks();

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Chart from './Chart';
-import { onGenerateTasks, onDrawChart } from '../redux/dataTasksReducer';
+import { onGenerateTasks, onDrawChart } from '../redux/Actions';
 
 const mapStateToProps = state => {
   return {

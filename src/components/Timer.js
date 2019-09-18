@@ -125,7 +125,7 @@ Timer.propTypes = {
   UpdateNewTaskText: PropTypes.func.isRequired,
   newTaskText: PropTypes.string.isRequired,
   onButton: PropTypes.bool.isRequired,
-  startTime: PropTypes.string,
+  startTime: PropTypes.instanceOf(Date),
 };
 Timer.defaultProps = {
   startTime: null,

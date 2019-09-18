@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Timer from './Timer';
-import { onTaskChangeActionCreator, startButtonAC, stopButtonAC } from '../redux/dataTasksReducer';
+import { onTaskChangeActionCreator, startButtonAC, stopButtonAC } from '../redux/Actions';
 
 const mapStateToProps = state => {
   return {

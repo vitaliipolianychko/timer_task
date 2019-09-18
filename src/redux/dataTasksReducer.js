@@ -1,3 +1,5 @@
+import { UPDATE_NEW_TASK_TEXT, START, STOP, DELETE, GENERATE_TASK, CHART } from './Actions';
+
 const locStorage = JSON.parse(localStorage.getItem('myKey'));
 let initialState;
 if (!locStorage) {
@@ -266,14 +268,14 @@ const dataTasksReducer = (state = initialState, action) => {
   let stop;
   let info;
   switch (action.type) {
-    case 'UPDATE-NEW-TASK-TEXT':
+    case UPDATE_NEW_TASK_TEXT:
       stateCopy = {
         ...state,
       };
       stateCopy.newTaskText = action.updateTask;
       return stateCopy;
 
-    case 'START':
+    case START:
       start = new Date();
       return {
         ...state,
@@ -281,7 +283,7 @@ const dataTasksReducer = (state = initialState, action) => {
         startTime: start,
       };
 
-    case 'STOP':
+    case STOP:
       startDate = new Date(state.startTime);
       stop = new Date();
       if (state.newTaskText === '') {
@@ -319,7 +321,7 @@ const dataTasksReducer = (state = initialState, action) => {
         stateCopy.newTaskText = '';
       }
       return stateCopy;
-    case 'DELETE':
+    case DELETE:
       stateCopy = {
         ...state,
         DataTasks: [...state.DataTasks],
@@ -333,7 +335,7 @@ const dataTasksReducer = (state = initialState, action) => {
       });
       return stateCopy;
 
-    case 'GENERATE-TASK':
+    case GENERATE_TASK:
       stateCopy = {
         ...state,
         DataTasks: [...state.DataTasks],
@@ -351,7 +353,7 @@ const dataTasksReducer = (state = initialState, action) => {
 
       return stateCopy;
 
-    case 'CHART':
+    case CHART:
       stateCopy = {
         ...state,
         Data: [...state.Data],
@@ -419,45 +421,6 @@ const dataTasksReducer = (state = initialState, action) => {
     default:
       return state;
   }
-};
-
-export const onTaskChangeActionCreator = text => {
-  return {
-    type: 'UPDATE-NEW-TASK-TEXT',
-    updateTask: text,
-  };
-};
-export const startButtonAC = () => {
-  return {
-    type: 'START',
-  };
-};
-export const stopButtonAC = () => {
-  return {
-    type: 'STOP',
-  };
-};
-export const onDeleteTask = taskId => {
-  return {
-    type: 'DELETE',
-    taskId,
-  };
-};
-export const onInfoTask = taskId => {
-  return {
-    type: 'INFO',
-    taskId,
-  };
-};
-export const onGenerateTasks = () => {
-  return {
-    type: 'GENERATE-TASK',
-  };
-};
-export const onDrawChart = () => {
-  return {
-    type: 'CHART',
-  };
 };
 
 export default dataTasksReducer;

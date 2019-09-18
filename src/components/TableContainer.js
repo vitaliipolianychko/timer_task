@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import CustomizedTables from './Table';
-import { onDeleteTask } from '../redux/dataTasksReducer';
+import { onDeleteTask } from '../redux/Actions';
 
 const mapStateToProps = state => {
   return {
