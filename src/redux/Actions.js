@@ -1,24 +1,26 @@
-export const UPDATE_NEW_TASK_TEXT = 'UPDATE-NEW-TASK-TEXT';
+// export const UPDATE_NEW_TASK_TEXT = 'UPDATE-NEW-TASK-TEXT';
 export const START = 'START';
 export const STOP = 'STOP';
 export const DELETE = 'DELETE';
 export const GENERATE_TASK = 'GENERATE-TASK';
-export const CHART = 'CHART';
 
-export const onTaskChangeActionCreator = text => {
+/* export const onTaskChangeActionCreator = text => {
   return {
     type: UPDATE_NEW_TASK_TEXT,
     updateTask: text,
   };
 };
+*/
+
 export const startButtonAC = () => {
   return {
     type: START,
   };
 };
-export const stopButtonAC = () => {
+export const stopButtonAC = TEXT => {
   return {
     type: STOP,
+    updateTask: TEXT,
   };
 };
 export const onDeleteTask = taskId => {
@@ -30,10 +32,5 @@ export const onDeleteTask = taskId => {
 export const onGenerateTasks = () => {
   return {
     type: GENERATE_TASK,
-  };
-};
-export const onDrawChart = () => {
-  return {
-    type: CHART,
   };
 };

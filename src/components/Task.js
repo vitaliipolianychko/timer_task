@@ -12,7 +12,8 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(5, 10),
   },
   but: {
-    margin: theme.spacing(5, 20),
+    marginRight: 'auto',
+    marginLeft: theme.spacing(2),
   },
   task: {
     margin: theme.spacing(2, 2),

@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import ButtonTimer from './Button_Timer';
 // eslint-disable-next-line no-unused-vars
 import style from '../style.css';
-import Popup from './PopUp';
 
+let TEXT;
 class Timer extends Component {
   constructor(props) {
     super(props);
@@ -32,13 +38,26 @@ class Timer extends Component {
     clearInterval(this.timerID);
   }
 
-  onTaskTextChange = event => {
+  /* onTaskTextChange = event => {
     const { UpdateNewTaskText } = this.props;
     const text = event.target.value;
     UpdateNewTaskText(text);
   };
+  */
+
+  onTaskTextChange = event => {
+    TEXT = event.target.value;
+    return TEXT;
+  };
 
   togglePopup = () => {
+    const { showModal } = this.state;
+    this.setState({
+      showModal: !showModal,
+    });
+  };
+
+  onClose = () => {
     const { showModal } = this.state;
     this.setState({
       showModal: !showModal,
@@ -57,21 +76,22 @@ class Timer extends Component {
   };
 
   stopTimer = () => {
-    const { onChangeStopButton, newTaskText } = this.props;
-    const text = newTaskText;
-    if (text !== '') {
+    const { onChangeStopButton /* newTaskText */ } = this.props;
+
+    if (TEXT !== '') {
       clearInterval(this.timerID);
       this.setState({
         value: 0,
       });
-    } else if (text === '') {
+      onChangeStopButton(TEXT);
+      TEXT = '';
+    } else if (TEXT === '') {
       this.togglePopup();
     }
-    onChangeStopButton();
   };
 
   render() {
-    const { newTaskText, onButton } = this.props;
+    const { /* newTaskText, */ onButton } = this.props;
     const { value, showModal } = this.state;
     let hour = Math.floor(value / 60 / 60);
     let minutes = Math.floor(value / 60) % 60;
@@ -92,7 +112,7 @@ class Timer extends Component {
             type="text"
             onChange={this.onTaskTextChange}
             placeholder="Name of your task"
-            value={newTaskText}
+            value={TEXT}
             className="margin-input"
           />
         </div>
@@ -114,7 +134,21 @@ class Timer extends Component {
             </ButtonTimer>
           )}
         </div>
-        {showModal ? <Popup closePopup={this.togglePopup} /> : null}
+        {showModal ? (
+          <Dialog open={open} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+            <DialogTitle id="alert-dialog-title">Empty task name</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                You are trying close your task without name, enter the title and try again
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.onClose} color="primary">
+                Close
+              </Button>
+            </DialogActions>
+          </Dialog>
+        ) : null}
       </div>
     );
   }
@@ -123,7 +157,7 @@ Timer.propTypes = {
   onChangeStartButton: PropTypes.func.isRequired,
   onChangeStopButton: PropTypes.func.isRequired,
   UpdateNewTaskText: PropTypes.func.isRequired,
-  newTaskText: PropTypes.string.isRequired,
+  // newTaskText: PropTypes.string.isRequired,
   onButton: PropTypes.bool.isRequired,
   startTime: PropTypes.instanceOf(Date),
 };
