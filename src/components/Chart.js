@@ -2,30 +2,42 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { BarChart, Legend, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import PropTypes from 'prop-types';
+import { cloneDeep } from 'lodash';
 import TimerContainer from './TimerContainer';
 import NavTabs from './Tabs';
 import Button from './Button_Timer';
 
-let Data = [];
-
 class Chart extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { Data: [] };
+  }
+
   componentDidMount() {
+    this.createData();
+    console.log(this.state.Data);
     this.drawChart();
+
   }
 
   componentWillUnmount() {
-    Data = [];
+    this.setState({
+      Data: [],
+    });
   }
 
   createData = () => {
+    const { Data } = this.state;
     for (let k = 0; k < 24; k += 1) {
-      Data.push({ id: k, minutes: 0, seconds: 0 });
+      this.setState({
+        Data: Data.push({ id: k, minutes: 0, seconds: 0 }),
+      });
     }
   };
 
   drawChart = () => {
-    this.createData();
     const { DataTasks } = this.props;
+    const Data = cloneDeep(this.state.Data);
     for (let k = 0; k < 24; k += 1) {
       Data[k].minutes = 0;
       Data[k].seconds = 0;
@@ -83,9 +95,10 @@ class Chart extends Component {
         Data[k].minutes = Math.round(Data[k].seconds / 60);
         Data[k].minutes = Data[k].minutes > 60 ? 60 : Data[k].minutes;
       }
-      return Data;
+      this.setState({ Data });
+      return this.state.Data;
     });
-    return Data;
+    return this.state.Data;
   };
 
   generateTasks = () => {
@@ -95,6 +108,7 @@ class Chart extends Component {
   };
 
   render() {
+    const { Data } = this.state;
     return (
       <div>
         <TimerContainer />

@@ -98,9 +98,9 @@ const dataTasksReducer = (state = initialState, action) => {
       for (let i = 1; i < 15; i += 1) {
         start = 0;
         end = 0;
-        const min_one = new Date().getTime();
-        const max_one = min_one + 24 * 3600 * 1000;
-        start = randomTime(min_one, max_one);
+        const minOne = new Date().getTime();
+        const maxOne = minOne + 24 * 3600 * 1000;
+        start = randomTime(minOne, maxOne);
         end = start + 5400 * 1000;
 
         stop = randomTime(start + 600000, end);
