@@ -81,6 +81,7 @@ class Chart extends Component {
       }
       for (let k = 0; k < 24; k += 1) {
         Data[k].minutes = Math.round(Data[k].seconds / 60);
+        Data[k].minutes = Data[k].minutes > 60 ? 60 : Data[k].minutes;
       }
       return Data;
     });

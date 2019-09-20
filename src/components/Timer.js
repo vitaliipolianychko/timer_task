@@ -11,7 +11,7 @@ import ButtonTimer from './Button_Timer';
 // eslint-disable-next-line no-unused-vars
 import style from '../style.css';
 
-let TEXT;
+let TEXT = '';
 class Timer extends Component {
   constructor(props) {
     super(props);
@@ -96,23 +96,17 @@ class Timer extends Component {
     let hour = Math.floor(value / 60 / 60);
     let minutes = Math.floor(value / 60) % 60;
     let seconds = Math.floor(value) % 60;
-    if (hour < 10) {
-      hour = `0${hour}`;
-    }
-    if (minutes < 10) {
-      minutes = `0${minutes}`;
-    }
-    if (seconds < 10) {
-      seconds = `0${seconds}`;
-    }
+    hour = hour < 10 ? `0${hour}` : hour;
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    seconds = seconds < 10 ? `0${seconds}` : seconds;
     return (
       <div className="container-timer">
         <div>
           <Input
             type="text"
             onChange={this.onTaskTextChange}
-            placeholder="Name of your task"
             value={TEXT}
+            placeholder="Name of your task"
             className="margin-input"
           />
         </div>
@@ -156,7 +150,7 @@ class Timer extends Component {
 Timer.propTypes = {
   onChangeStartButton: PropTypes.func.isRequired,
   onChangeStopButton: PropTypes.func.isRequired,
-  UpdateNewTaskText: PropTypes.func.isRequired,
+  // UpdateNewTaskText: PropTypes.func.isRequired,
   // newTaskText: PropTypes.string.isRequired,
   onButton: PropTypes.bool.isRequired,
   startTime: PropTypes.instanceOf(Date),

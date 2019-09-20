@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from './Button_Timer';
 import NavTabs from './Tabs';
+import { generateTime, spendTime } from '../redux/generateTime';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -33,61 +34,9 @@ export default function CustomizedTables(props) {
   const classes = useStyles();
   const dataTasks = DataTasks.map(task => {
     const { tasks } = task;
-    let timeStart = new Date(task.time_start);
-    let timeEnd = new Date(task.time_end);
-    let timeSpend = new Date(task.time_spend);
-    let hourStart = timeStart.getHours();
-    let minutesStart = timeStart.getMinutes();
-    let secondsStart = timeStart.getSeconds();
-    if (hourStart < 10) {
-      hourStart = `0${hourStart}`;
-    }
-    if (minutesStart < 10) {
-      minutesStart = `0${minutesStart}`;
-    }
-    if (secondsStart < 10) {
-      secondsStart = `0${secondsStart}`;
-    }
-    timeStart = `${hourStart}:${minutesStart}:${secondsStart}`;
-
-    let hourStop = timeEnd.getHours();
-    let minutesStop = timeEnd.getMinutes();
-    let secondsStop = timeEnd.getSeconds();
-    if (hourStop < 10) {
-      hourStop = `0${hourStop}`;
-    }
-    if (minutesStop < 10) {
-      minutesStop = `0${minutesStop}`;
-    }
-    if (secondsStop < 10) {
-      secondsStop = `0${secondsStop}`;
-    }
-    timeEnd = `${hourStop}:${minutesStop}:${secondsStop}`;
-
-    let hourSpend = hourStop - hourStart;
-    let minutesSpend = minutesStop - minutesStart;
-    let secondsSpend = secondsStop - secondsStart;
-    if (secondsSpend < 0) {
-      secondsSpend += 60;
-      minutesSpend -= 1;
-    }
-    if (minutesSpend < 0) {
-      minutesSpend += 60;
-      hourSpend -= 1;
-    }
-    if (hourSpend < 0) {
-      hourSpend += 24;
-    }
-    if (hourSpend < 10) {
-      hourSpend = `0${hourSpend}`;
-    }
-    if (minutesSpend < 10) {
-      minutesSpend = `0${minutesSpend}`;
-    }
-    if (secondsSpend < 10) {
-      secondsSpend = `0${secondsSpend}`;
-    }
-    timeSpend = `${hourSpend}:${minutesSpend}:${secondsSpend}`;
+    const timeStart = generateTime(new Date(task.time_start));
+    const timeEnd = generateTime(new Date(task.time_end));
+    const timeSpend = spendTime(new Date(task.time_start), new Date(task.time_end));
     const data = { tasks, timeStart, timeEnd, timeSpend };
     return data;
   });

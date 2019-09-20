@@ -1,4 +1,5 @@
 import { START, STOP, DELETE, GENERATE_TASK /* UPDATE_NEW_TASK_TEXT */ } from './Actions';
+import { randomTime } from './generateTime';
 
 const locStorage = JSON.parse(localStorage.getItem('myKey'));
 let initialState;
@@ -22,6 +23,7 @@ const dataTasksReducer = (state = initialState, action) => {
   let start;
   let startDate;
   let stop;
+  let end;
   switch (action.type) {
     /* case UPDATE_NEW_TASK_TEXT:
       stateCopy = {
@@ -31,7 +33,7 @@ const dataTasksReducer = (state = initialState, action) => {
       return stateCopy;
       */
     case START:
-      start = new Date();
+      start = new Date().getTime();
       return {
         ...state,
         onButton: !state.onButton,
@@ -39,8 +41,8 @@ const dataTasksReducer = (state = initialState, action) => {
       };
 
     case STOP:
-      startDate = new Date(state.startTime);
-      stop = new Date();
+      startDate = new Date(state.startTime).getTime();
+      stop = new Date().getTime();
 
       if (state.DataTasks.length === 0) {
         const newTaskData = {
@@ -93,12 +95,20 @@ const dataTasksReducer = (state = initialState, action) => {
         DataTasks: [...state.DataTasks],
       };
       stateCopy.DataTasks = [];
-      for (let i = 10; i < 21; i += 1) {
+      for (let i = 1; i < 15; i += 1) {
+        start = 0;
+        end = 0;
+        const min_one = new Date().getTime();
+        const max_one = min_one + 24 * 3600 * 1000;
+        start = randomTime(min_one, max_one);
+        end = start + 5400 * 1000;
+
+        stop = randomTime(start + 600000, end);
         const newTaskData = {
           id: i,
           tasks: `generate task ${i}`,
-          time_start: `2019-09-13T${i}:${i}:00.759Z`,
-          time_end: `2019-09-13T${i}:49:00.647Z`,
+          time_start: start,
+          time_end: stop,
         };
         stateCopy.DataTasks.push(newTaskData);
       }
