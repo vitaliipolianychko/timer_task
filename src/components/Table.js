@@ -34,9 +34,9 @@ export default function CustomizedTables(props) {
   const classes = useStyles();
   const dataTasks = DataTasks.map(task => {
     const { tasks } = task;
-    const timeStart = generateTime(new Date(task.time_start));
-    const timeEnd = generateTime(new Date(task.time_end));
-    const timeSpend = spendTime(new Date(task.time_start), new Date(task.time_end));
+    const timeStart = generateTime(new Date(task.timeStart));
+    const timeEnd = generateTime(new Date(task.timeEnd));
+    const timeSpend = spendTime(new Date(task.timeStart), new Date(task.timeEnd));
     const data = { tasks, timeStart, timeEnd, timeSpend };
     return data;
   });

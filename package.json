@@ -8,7 +8,6 @@
     "@material-ui/styles": "^4.3.3",
     "history-prop-types": "^2.5.2",
     "lodash": "^4.17.15",
-    "lodash.clonedeep": "^4.5.0",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
@@ -16,7 +15,6 @@
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "0.9.5",
-    "reactjs-popup": "^1.5.0",
     "recharts": "^1.7.1",
     "redux": "^4.0.4",
     "redux-saga": "^1.1.1"
@@ -25,6 +23,7 @@
     "@babel/core": "^7.5.5",
     "babel-eslint": "^10.0.3",
     "babel-install": "2.1.0",
+    "babel-jest": "^24.9.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.1.0",
@@ -36,7 +35,8 @@
     "gh-pages": "^2.1.1",
     "jest": "^24.9.0",
     "prettier": "1.18.2",
-    "redux-devtools": "^3.5.0"
+    "redux-devtools": "^3.5.0",
+    "regenerator-runtime": "^0.13.3"
   },
   "scripts": {
     "predeploy": "npm run build",

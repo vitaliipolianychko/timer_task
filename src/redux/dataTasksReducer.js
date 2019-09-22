@@ -35,8 +35,8 @@ const dataTasksReducer = (state = initialState, action) => {
         const newTaskData = {
           id: 0,
           tasks: action.updateTask,
-          time_start: startDate,
-          time_end: stop,
+          timeStart: startDate,
+          timeEnd: stop,
         };
         stateCopy = {
           ...state,
@@ -49,8 +49,8 @@ const dataTasksReducer = (state = initialState, action) => {
         const newTaskData = {
           id: lastElement + 1,
           tasks: action.updateTask,
-          time_start: startDate,
-          time_end: stop,
+          timeStart: startDate,
+          timeEnd: stop,
         };
         stateCopy = {
           ...state,
