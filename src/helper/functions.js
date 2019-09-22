@@ -44,3 +44,25 @@ export const spendTime = (param1, param2) => {
 export const randomTime = (min, max) => {
   return (max - min) * Math.random() + min;
 };
+
+export const generateTasks = () => {
+  const data = [];
+  for (let i = 1; i < 15; i += 1) {
+    let start = 0;
+    let end = 0;
+    const minOne = new Date().getTime();
+    const maxOne = minOne + 24 * 3600 * 1000;
+    start = randomTime(minOne, maxOne);
+    end = start + 5400 * 1000;
+
+    const stop = randomTime(start + 600000, end);
+    const newTaskData = {
+      id: i,
+      tasks: `generate task ${i}`,
+      time_start: start,
+      time_end: stop,
+    };
+    data.push(newTaskData);
+  }
+  return data;
+};

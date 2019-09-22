@@ -10,34 +10,32 @@ import Button from './Button_Timer';
 class Chart extends Component {
   constructor(props) {
     super(props);
-    this.state = { Data: [] };
+    this.state = { dataChart: [] };
   }
 
   componentDidMount() {
     this.createData();
-    console.log(this.state.Data);
-    this.drawChart();
-
-  }
-
-  componentWillUnmount() {
-    this.setState({
-      Data: [],
-    });
   }
 
   createData = () => {
-    const { Data } = this.state;
-    for (let k = 0; k < 24; k += 1) {
-      this.setState({
-        Data: Data.push({ id: k, minutes: 0, seconds: 0 }),
-      });
-    }
+    const data = Array(24)
+      .fill({ minutes: 0, seconds: 0 })
+      .map((item, index) => ({
+        id: index,
+        ...item,
+      }));
+    this.setState(
+      {
+        dataChart: data,
+      },
+      this.drawChart
+    );
   };
 
   drawChart = () => {
     const { DataTasks } = this.props;
-    const Data = cloneDeep(this.state.Data);
+    const { dataChart } = this.state;
+    const Data = cloneDeep(dataChart);
     for (let k = 0; k < 24; k += 1) {
       Data[k].minutes = 0;
       Data[k].seconds = 0;
@@ -48,7 +46,7 @@ class Chart extends Component {
       const time = { index, timeStart, timeEnd };
       return time;
     });
-    info.map(item => {
+    info.forEach(item => {
       for (let i = 0; i < 24; i += 1) {
         if (item.timeStart.getHours() === Data[i].id) {
           let secondsInHour;
@@ -96,15 +94,13 @@ class Chart extends Component {
         Data[k].minutes = Data[k].minutes > 60 ? 60 : Data[k].minutes;
       }
       this.setState({ Data });
-      return this.state.Data;
     });
-    return this.state.Data;
   };
 
   generateTasks = () => {
     const { GenerateTasks } = this.props;
     GenerateTasks();
-    this.drawChart();
+    this.createData();
   };
 
   render() {
@@ -115,7 +111,7 @@ class Chart extends Component {
         <div style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto', marginTop: '2%', padding: '0' }}>
           <NavTabs />
           <ResponsiveContainer width="100%" height={250}>
-            <BarChart data={Data} margin={{ top: 20, right: 20, bottom: 10, left: 0 }}>
+            <BarChart data={Data} margin={{ top: 10, right: 20, bottom: 10, left: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="id" />
               <YAxis />
@@ -126,7 +122,7 @@ class Chart extends Component {
           </ResponsiveContainer>
 
           <Button
-            style={{ marginTop: '10px', backgroundColor: 'silver', marginLeft: '80%' }}
+            style={{ backgroundColor: 'silver', marginLeft: '80%' }}
             onClick={() => {
               this.generateTasks();
             }}

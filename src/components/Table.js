@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from './Button_Timer';
 import NavTabs from './Tabs';
-import { generateTime, spendTime } from '../redux/generateTime';
+import { generateTime, spendTime } from '../helper/functions';
 
 const useStyles = makeStyles(() => ({
   root: {

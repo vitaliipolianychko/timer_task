@@ -1,10 +1,9 @@
 import { connect } from 'react-redux';
 import Timer from './Timer';
-import { /*onTaskChangeActionCreator,*/ startButtonAC, stopButtonAC } from '../redux/Actions';
+import { startButtonAC, stopButtonAC } from '../redux/Actions';
 
 const mapStateToProps = state => {
   return {
-    // newTaskText: state.newTaskText,
     onButton: state.onButton,
     startTime: state.startTime,
   };
@@ -12,15 +11,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    /*UpdateNewTaskText: text => {
-      dispatch(onTaskChangeActionCreator(text));
+    onChangeStartButton: startTimer => {
+      dispatch(startButtonAC(startTimer));
     },
-    */
-    onChangeStartButton: () => {
-      dispatch(startButtonAC());
-    },
-    onChangeStopButton: TEXT => {
-      dispatch(stopButtonAC(TEXT));
+    onChangeStopButton: (TEXT, startTimer, stopTimer) => {
+      dispatch(stopButtonAC(TEXT, startTimer, stopTimer));
     },
   };
 };

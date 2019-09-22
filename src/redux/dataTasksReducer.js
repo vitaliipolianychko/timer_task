@@ -1,5 +1,4 @@
-import { START, STOP, DELETE, GENERATE_TASK /* UPDATE_NEW_TASK_TEXT */ } from './Actions';
-import { randomTime } from './generateTime';
+import { START, STOP, DELETE, GENERATE_TASK } from './Actions';
 
 const locStorage = JSON.parse(localStorage.getItem('myKey'));
 let initialState;
@@ -7,43 +6,31 @@ if (!locStorage) {
   initialState = {
     DataTasks: [],
     onButton: true,
-    // newTaskText: '',
     startTime: null,
   };
 } else {
   initialState = {
     DataTasks: locStorage.DataTasks,
     onButton: locStorage.onButton,
-    // newTaskText: '',
     startTime: locStorage.startTime,
   };
 }
 const dataTasksReducer = (state = initialState, action) => {
   let stateCopy;
-  let start;
+  let start = 0;
   let startDate;
   let stop;
-  let end;
   switch (action.type) {
-    /* case UPDATE_NEW_TASK_TEXT:
-      stateCopy = {
-        ...state,
-      };
-      stateCopy.newTaskText = action.updateTask;
-      return stateCopy;
-      */
     case START:
-      start = new Date().getTime();
+      start = action.startTimer;
       return {
         ...state,
         onButton: !state.onButton,
         startTime: start,
       };
-
     case STOP:
-      startDate = new Date(state.startTime).getTime();
-      stop = new Date().getTime();
-
+      startDate = action.startTimer;
+      stop = action.stopTimer;
       if (state.DataTasks.length === 0) {
         const newTaskData = {
           id: 0,
@@ -57,7 +44,6 @@ const dataTasksReducer = (state = initialState, action) => {
           onButton: !state.onButton,
           startTime: null,
         };
-        stateCopy.newTaskText = '';
       } else {
         const lastElement = state.DataTasks[state.DataTasks.length - 1].id;
         const newTaskData = {
@@ -66,7 +52,6 @@ const dataTasksReducer = (state = initialState, action) => {
           time_start: startDate,
           time_end: stop,
         };
-
         stateCopy = {
           ...state,
           DataTasks: [...state.DataTasks, newTaskData],
@@ -76,18 +61,10 @@ const dataTasksReducer = (state = initialState, action) => {
       }
       return stateCopy;
     case DELETE:
-      stateCopy = {
+      return {
         ...state,
-        DataTasks: [...state.DataTasks],
+        DataTasks: state.DataTasks.filter((task, index) => index !== action.taskId),
       };
-      stateCopy.DataTasks.map((task, index) => {
-        if (index === action.taskId) {
-          const currentRow = index;
-          stateCopy.DataTasks.splice(currentRow, 1);
-        }
-        return stateCopy;
-      });
-      return stateCopy;
 
     case GENERATE_TASK:
       stateCopy = {
@@ -95,25 +72,10 @@ const dataTasksReducer = (state = initialState, action) => {
         DataTasks: [...state.DataTasks],
       };
       stateCopy.DataTasks = [];
-      for (let i = 1; i < 15; i += 1) {
-        start = 0;
-        end = 0;
-        const minOne = new Date().getTime();
-        const maxOne = minOne + 24 * 3600 * 1000;
-        start = randomTime(minOne, maxOne);
-        end = start + 5400 * 1000;
-
-        stop = randomTime(start + 600000, end);
-        const newTaskData = {
-          id: i,
-          tasks: `generate task ${i}`,
-          time_start: start,
-          time_end: stop,
-        };
-        stateCopy.DataTasks.push(newTaskData);
-      }
-
-      return stateCopy;
+      return {
+        ...state,
+        DataTasks: action.data,
+      };
 
     default:
       return state;

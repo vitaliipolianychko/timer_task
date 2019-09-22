@@ -1,5 +1,9 @@
 import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 import dataTasksReducer from './dataTasksReducer';
+import rootSaga from './sagas';
+
+const sagaMiddleware = createSagaMiddleware();
 
 function logger({ getState }) {
   return next => action => {
@@ -10,6 +14,7 @@ function logger({ getState }) {
   };
 }
 
-const store = createStore(dataTasksReducer, applyMiddleware(logger));
+const store = createStore(dataTasksReducer, applyMiddleware(logger, sagaMiddleware));
+sagaMiddleware.run(rootSaga);
 
 export default store;

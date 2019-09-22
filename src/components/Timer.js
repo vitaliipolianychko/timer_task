@@ -11,11 +11,10 @@ import ButtonTimer from './Button_Timer';
 // eslint-disable-next-line no-unused-vars
 import style from '../style.css';
 
-let TEXT = '';
 class Timer extends Component {
   constructor(props) {
     super(props);
-    this.state = { value: 0, showModal: false };
+    this.state = { value: 0, showModal: false, text: '' };
     this.newTask = React.createRef();
   }
 
@@ -38,16 +37,12 @@ class Timer extends Component {
     clearInterval(this.timerID);
   }
 
-  /* onTaskTextChange = event => {
-    const { UpdateNewTaskText } = this.props;
-    const text = event.target.value;
-    UpdateNewTaskText(text);
-  };
-  */
-
   onTaskTextChange = event => {
-    TEXT = event.target.value;
-    return TEXT;
+    const { text } = this.state;
+    this.setState({
+      text: event.target.value,
+    });
+    return text;
   };
 
   togglePopup = () => {
@@ -66,8 +61,9 @@ class Timer extends Component {
 
   startTimer = () => {
     const { onChangeStartButton } = this.props;
+    const startTimer = new Date().getTime();
     this.timerID = setInterval(() => this.increment(), 1000);
-    onChangeStartButton();
+    onChangeStartButton(startTimer);
   };
 
   increment = () => {
@@ -76,22 +72,27 @@ class Timer extends Component {
   };
 
   stopTimer = () => {
-    const { onChangeStopButton /* newTaskText */ } = this.props;
-
-    if (TEXT !== '') {
+    const { onChangeStopButton, startTime } = this.props;
+    const { text } = this.state;
+    const startTimer = new Date(startTime).getTime();
+    const stopTimer = new Date().getTime();
+    if (text !== '') {
       clearInterval(this.timerID);
       this.setState({
         value: 0,
       });
-      onChangeStopButton(TEXT);
-      TEXT = '';
-    } else if (TEXT === '') {
+      onChangeStopButton(text, startTimer, stopTimer);
+      this.setState({
+        text: '',
+      });
+    } else if (text === '') {
       this.togglePopup();
     }
   };
 
   render() {
-    const { /* newTaskText, */ onButton } = this.props;
+    const { onButton } = this.props;
+    const { text } = this.state;
     const { value, showModal } = this.state;
     let hour = Math.floor(value / 60 / 60);
     let minutes = Math.floor(value / 60) % 60;
@@ -105,7 +106,7 @@ class Timer extends Component {
           <Input
             type="text"
             onChange={this.onTaskTextChange}
-            value={TEXT}
+            value={text}
             placeholder="Name of your task"
             className="margin-input"
           />
@@ -150,8 +151,6 @@ class Timer extends Component {
 Timer.propTypes = {
   onChangeStartButton: PropTypes.func.isRequired,
   onChangeStopButton: PropTypes.func.isRequired,
-  // UpdateNewTaskText: PropTypes.func.isRequired,
-  // newTaskText: PropTypes.string.isRequired,
   onButton: PropTypes.bool.isRequired,
   startTime: PropTypes.instanceOf(Date),
 };

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Chart from './Chart';
-import { onGenerateTasks } from '../redux/Actions';
+import { generateTasksRequest } from '../redux/Actions';
 
 const mapStateToProps = state => {
   return {
@@ -11,7 +11,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     GenerateTasks: () => {
-      dispatch(onGenerateTasks());
+      dispatch(generateTasksRequest());
     },
   };
 };

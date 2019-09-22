@@ -1,26 +1,27 @@
-// export const UPDATE_NEW_TASK_TEXT = 'UPDATE-NEW-TASK-TEXT';
 export const START = 'START';
 export const STOP = 'STOP';
 export const DELETE = 'DELETE';
 export const GENERATE_TASK = 'GENERATE-TASK';
+export const GENERATE_TASK_REQUEST = 'GENERATE-TASK-REQUEST';
 
-/* export const onTaskChangeActionCreator = text => {
+export const generateTasksRequest = () => {
   return {
-    type: UPDATE_NEW_TASK_TEXT,
-    updateTask: text,
+    type: GENERATE_TASK_REQUEST,
   };
 };
-*/
 
-export const startButtonAC = () => {
+export const startButtonAC = startTimer => {
   return {
     type: START,
+    startTimer,
   };
 };
-export const stopButtonAC = TEXT => {
+export const stopButtonAC = (TEXT, startTimer, stopTimer) => {
   return {
     type: STOP,
     updateTask: TEXT,
+    startTimer,
+    stopTimer,
   };
 };
 export const onDeleteTask = taskId => {
@@ -29,8 +30,9 @@ export const onDeleteTask = taskId => {
     taskId,
   };
 };
-export const onGenerateTasks = () => {
+export const onGenerateTasks = data => {
   return {
     type: GENERATE_TASK,
+    data,
   };
 };
