@@ -1,4 +1,4 @@
-import { drawChart } from './helper/functions';
+const drawChart = require('./funcDataChart');
 
 const dataTest = [
   {
@@ -19,12 +19,18 @@ const dataTest = [
     timeEnd: new Date().setHours(18, 0, 0),
     timeStart: new Date().setHours(17, 5, 0),
   },
+    {
+    id: 4,
+    tasks: 'generate task 4',
+    timeEnd: new Date().setHours(2, 50, 0),
+    timeStart: new Date().setHours(2, 10, 0),
+  },
 ];
 
 const resultTest = [
   { id: 0, minutes: 0 },
   { id: 1, minutes: 0 },
-  { id: 2, minutes: 0 },
+  { id: 2, minutes: 40 },
   { id: 3, minutes: 0 },
   { id: 4, minutes: 0 },
   { id: 5, minutes: 0 },
@@ -48,14 +54,6 @@ const resultTest = [
   { id: 23, minutes: 0 },
 ];
 
-test('Chart is working...', () => {
+test('Function drawChart is working ', () => {
   expect(drawChart(dataTest)).toEqual(resultTest);
 });
-
-/*
-const sum = require('./sum');
-
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3);
-});
-*/

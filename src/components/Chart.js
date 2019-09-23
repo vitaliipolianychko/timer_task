@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import TimerContainer from './TimerContainer';
 import NavTabs from './Tabs';
 import Button from './Button_Timer';
-import { drawChart } from '../helper/functions';
+import drawChart from '../helper/funcDataChart';
 
 class Chart extends Component {
   componentDidMount() {
