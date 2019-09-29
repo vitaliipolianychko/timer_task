@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Timer from './Timer';
-import { startButtonAC, stopButtonAC } from '../redux/Actions';
+import { startButtonAC, stopButtonAC } from '../../redux/Actions';
 
 const mapStateToProps = state => {
   return {

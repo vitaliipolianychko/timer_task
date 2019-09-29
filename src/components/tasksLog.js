@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import TimerContainer from './TimerContainer';
-import TableContainer from './TableContainer';
+import TimerContainer from './Timer/TimerContainer';
+import TableContainer from './Table/TableContainer';
 
 function TasksLog() {
   return (

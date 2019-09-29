@@ -8,9 +8,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Button from './Button_Timer';
-import NavTabs from './Tabs';
-import { generateTime, spendTime } from '../helper/functions';
+import Button from '@material-ui/core/Button';
+import NavTabs from '../Tabs';
+import { generateTime, spendTime } from '../../helper/functions';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -26,6 +26,9 @@ const useStyles = makeStyles(() => ({
   backTableRoot: {
     background: 'white',
     color: 'silver',
+  },
+  link: {
+    textDecoration: 'none',
   },
 }));
 
@@ -81,14 +84,17 @@ export default function CustomizedTables(props) {
               <TableCell align="left">{task.timeSpend}</TableCell>
               <TableCell align="left">
                 {
-                  <Link style={{ textDecoration: 'none' }} to={`/tasks/${index + 1}`}>
-                    <Button align="left">Info </Button>
+                  <Link className={classes.link} to={`/tasks/${index + 1}`}>
+                    <Button variant="contained" align="left">
+                      Info{' '}
+                    </Button>
                   </Link>
                 }
               </TableCell>
               <TableCell align="left">
                 {
                   <Button
+                    variant="contained"
                     onClick={() => {
                       DeleteTask(index);
                     }}

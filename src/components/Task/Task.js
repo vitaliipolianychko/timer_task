@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
-import { generateTime, spendTime } from '../helper/functions';
+import { generateTime, spendTime } from '../../helper/functions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -13,6 +13,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(5, 10),
   },
   but: {
+    textDecoration: 'none',
     marginRight: 'auto',
     marginLeft: theme.spacing(2),
   },
@@ -60,7 +61,7 @@ function Task(props) {
         </Typography>
       )}
 
-      <Link style={{ textDecoration: 'none' }} to="/tasks" className={classes.but}>
+      <Link to="/tasks" className={classes.but}>
         <Button variant="contained"> Go Back </Button>
       </Link>
     </Paper>

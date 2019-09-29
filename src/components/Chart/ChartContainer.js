@@ -1,27 +1,26 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import CustomizedTables from './Table';
-import { onDeleteTask } from '../redux/Actions';
+import Chart from './Chart';
+import { generateTasksRequest } from '../../redux/Actions';
 
 const mapStateToProps = state => {
   return {
     DataTasks: state.DataTasks,
   };
 };
-
 const mapDispatchToProps = dispatch => {
   return {
-    DeleteTask: taskId => {
-      dispatch(onDeleteTask(taskId));
+    GenerateTasks: () => {
+      dispatch(generateTasksRequest());
     },
   };
 };
 
-const TableContainer = withRouter(
+const ChartContainer = withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(CustomizedTables)
+  )(Chart)
 );
 
-export default TableContainer;
+export default ChartContainer;
